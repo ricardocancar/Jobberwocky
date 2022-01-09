@@ -1,0 +1,12 @@
+jobs List
+{% if jobs_list %}
+
+    {% for job in jobs_list %}
+    {{ job.name }} ({{ job.description }}) 
+    {{ job.salary_min }} ({{ job.salary_max }})
+    {% endfor %} 
+
+{% else %}
+
+There are no jobs in the avaliable for you.
+{% endif %}

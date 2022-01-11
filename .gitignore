@@ -351,3 +351,4 @@ MigrationBackup/
 
 */__pycache__/*
 jobberwocky/db.sqlite3
+*/configuration.py

@@ -4,8 +4,8 @@ from job_register.forms import JobForm
 from django.urls import reverse
 from django.shortcuts import render, redirect
 
-from job_register.models import Jobs
-
+from job_register.models import Jobs, Skills
+import requests
 # Create your views here.
 class Create(View):
     def get(self, request):
@@ -25,10 +25,32 @@ class Create(View):
         return redirect(x)
 
 
-# this will be the search engine function
-class GetJobs(View):
+# query the database and return a list of jobs that match the search job_name
+class Search(View):
     def get(self, request):
-        job = Jobs.objects.all()
-        ctx = {"jobs_list": job}
-        return render(request, "job_register/jobs_list.html", ctx)
+        # call another api to more job list using the following url http://localhost:8081/jobs?name=
+        
+        job_name = request.GET.get("job_name", '')
+        jobs = Jobs.objects.filter(job_name__contains=job_name)
+        # get the the skills for each job
+        skills = Skills.objects.all()
+        ctx = {"jobs": jobs, "skills": skills}
+        return render(request, "job_register/search.html", ctx)
+
+# class Search_v2(View):
+#     def get(self, request):
+#         # call another api to more job list using the following url http://localhost:8081/jobs?name=
+        
+#         job_name = request.GET.get("job_name", '')
+#         response = requests.get(f"http://localhost:8081/jobs?name={job_name}")
+#         other_jobs = []
+#         if response.status_code  == 200:
+#             other_jobs = response.json()
+#         { '' for job in other_jobs}
+#         jobs = Jobs.objects.filter(job_name__contains=job_name)
+#         # get the the skills for each job
+#         skills = Skills.objects.all()
+
+        ctx = {"jobs": jobs, "skills": skills}
+        return render(request, "job_register/search.html", ctx)
 

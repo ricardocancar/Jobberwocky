@@ -1,0 +1,17 @@
+Jobs List
+{% if jobs %}
+    
+    {% for job in jobs %}
+        <br>Job Name: {{ job.job_name }}
+        <br>Job Description: {{ job.description }}
+        <br>Job Salary: {{ job.salary_min }} - {{ job.salary_max }} ({{job.currency}})
+        <br>Job Experience: {{ job.experience}}<br/>
+        Skills:
+        {% for skill in job.skills.all %}
+            <p style="text-indent:20px;">{{ skill.name }}</p>
+        {% endfor %}
+    {% endfor %}
+    
+{% else %}
+    No jobs for you
+{% endif %}

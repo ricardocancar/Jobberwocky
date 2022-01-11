@@ -7,5 +7,5 @@ app_name = "job_register"
 urlpatterns = [
     path("", TemplateView.as_view(template_name="job_register/main.html"), name="main"),
     path("create/", views.Create.as_view(), name="create"),
-    path("search/", views.GetJobs.as_view(), name="search"),
+    path("search/", views.Search.as_view(), name="search")
 ]

@@ -4,29 +4,44 @@ from django.db import models
 from django.db import models
 from django.core.validators import MinLengthValidator
 
-# create a job model to store the data in the database wih the following fields
-# name, description, country, salary_min, salary_max,
-#  experience, skills, qualifications
+COUNTRIES = [
+    ("US", "United States"),
+    ("ES", "Spain"),
+    ("UK", "United Kingdom"),
+]
+CURRENCY = [("USD", "USD"), ("EUR", "EUR"), ("GBP", "GBP")]
+EXPERIENCE = [
+    ("1 years", "1 years"),
+    ("2 years", "2 years"),
+    ("3 years", "3 years"),
+    ("4 years", "4 years"),
+    ("5 years", "5 years"),
+]
+
+
 class Skills(models.Model):
+    """
+    skills many to many relationship with jobs
+    """
+
     name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
 
 
-# create a employer model to store the data in the database wih the following fields
-# name, email, password, company_name, company_description, company_website, company_address, company_country,  company_phone
 class Company(models.Model):
+    """
+    Company model to store the data in the database wih the following fields
+    """
+
     company_name = models.CharField(max_length=100)
     company_email = models.EmailField()
     # password = models.CharField(max_length=100)
     company_description = models.CharField(max_length=500)
     company_website = models.URLField()
     company_address = models.CharField(max_length=100)
-    company_country = models.CharField(
-        max_length=2,
-        choices=[("US", "United States"), ("ES", "Spain"), ("UK", "United Kingdom")],
-    )
+    company_country = models.CharField(max_length=2, choices=COUNTRIES)
     company_phone = models.CharField(max_length=100)
 
     def __str__(self):
@@ -34,9 +49,10 @@ class Company(models.Model):
 
 
 class Jobs(models.Model):
-    COUNTRIES = [("US", "United States"), ("ES", "Spain"), ("UK", "United Kingdom")]
-    CURRENCY = [("USD", "USD"), ("EUR", "EUR"), ("GBP", "GBP")]
-    EXPERIENCE = [("1 years", "1 years"), ("2 years", "2 yearss"), ("3 years", "3 years"), ("4 years", "4 years"), ("5 years", "5 years")]
+    """
+    Jobs model to store the data in the database wih the following fields
+    """
+
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     job_name = models.CharField(max_length=100)
     description = models.CharField(max_length=500, null=True, blank=True)

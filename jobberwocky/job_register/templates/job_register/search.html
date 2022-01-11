@@ -5,13 +5,25 @@ Jobs List
         <br>Job Name: {{ job.job_name }}
         <br>Job Description: {{ job.description }}
         <br>Job Salary: {{ job.salary_min }} - {{ job.salary_max }} ({{job.currency}})
+        <br>Job country: {{ job.country }}
         <br>Job Experience: {{ job.experience}}<br/>
         Skills:
         {% for skill in job.skills.all %}
             <p style="text-indent:20px;">{{ skill.name }}</p>
         {% endfor %}
     {% endfor %}
-    
-{% else %}
+{% endif %}
+
+{% if externals_jobs_offers %}
+    {% for job in externals_jobs_offers %}
+        <br>Job Name: {{ job.name}}
+        <br>Job country: {{ job.country }}
+        <br>Job Salary: {{ job.salary }}<br/>
+        Skills:
+        {% for skill in job.skills %}
+            <p style="text-indent:20px;">{{ skill }}</p>
+        {% endfor %}
+    {% endfor %}
+{% elif not jobs and not others_jobs %}
     No jobs for you
 {% endif %}

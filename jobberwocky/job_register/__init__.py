@@ -1,6 +1,16 @@
 import requests
-
+import smtplib
+from configuration import MY_ADDRESS, PASSWORD, HOST, PORT
 EXTERNALS_URL_JOB_OFFERS = "http://localhost:8081/jobs?name="
+
+
+smtp = smtplib.SMTP(
+    host=HOST,
+    port=PORT,
+    timeout=5
+)
+smtp.starttls()
+smtp.login(MY_ADDRESS, PASSWORD)
 
 
 def input_parser(externals_jobs_offers: list, jobs_data_list: list = None) -> list:

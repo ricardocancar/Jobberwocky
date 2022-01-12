@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>The job you are looking for</h1>
+
+<form action='{% url 'job_register:search/v1' %}'>
+  <label for="job">job_role</label>
+  <input type="text" id="job" name="job_name"><br><br>
+  <input type="submit" value="search">
+</form>
+
+<p>Click the "Submit" button to send the data into the search engine.</p>
+<button onclick="history.back()">Go Back</button>
+</body>
+</html>

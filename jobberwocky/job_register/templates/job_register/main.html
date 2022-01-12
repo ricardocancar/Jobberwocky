@@ -1,7 +1,10 @@
 <html><body><p>Simple HTML code to a job app</p>
     <ul>
         
-        <li><a href="create">create neb job view</a></li>
+        <li><a href='{% url 'job_register:create' %}'>create new job view</a></li>
+        <li><a href='{% url 'job_register:signin' %}'>create new user view</a></li>
+        <li><a href='{% url 'job_register:search/engine/v1' %}'>go to old search engine</a></li>
+        <li><a href='{% url 'job_register:search/engine/v2' %}'>go to search engine</a></li>
 
     </ul>
     </p>

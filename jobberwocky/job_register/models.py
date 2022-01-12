@@ -72,6 +72,10 @@ class Jobs(models.Model):
 # create an user model with name, email, password, user type (employer or candidate) and profession
 # profession is a foreign key to the Jobs model
 class User(models.Model):
+    """
+    user model to store the data in the database wih the following fields
+    allowing the applications sending  the candidates an email alert
+    """
     name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
     password = models.CharField(max_length=100)

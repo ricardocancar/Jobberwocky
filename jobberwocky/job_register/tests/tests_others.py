@@ -1,6 +1,25 @@
+import os
 from django.db.models.query_utils import PathInfo
 from django.test import TestCase
 from job_register import get_externals_job_offers, input_parser
+from job_register.send_email import read_template
+
+EMAIL_TEMPLATE = """Dear ${PERSON_NAME}, 
+
+This is a new job offer that we think it may work for You 
+ Company: ${COMPANY}
+ Job offer ${PROFESSION}
+ Experience ${EXPERIENCE}
+ Salary ${SALARY_MIN} - ${SALARY_MAX} (${CURRENCY})
+ Skills ${SKILLS}
+
+description:
+${DESCRIPTION}
+
+
+Have a great day! 
+
+best Regards"""
 
 
 class TestOthers(TestCase):
@@ -45,3 +64,22 @@ class TestOthers(TestCase):
             },
         ]
         self.assertEqual(input_data_parsed, expected_output)
+
+    def test_input_parser_empty_list(self):
+        """
+        transform the empty input data:
+        """
+        input_data = []
+        input_data_parsed = input_parser(input_data)
+        expected_output = []
+        self.assertEqual(input_data_parsed, expected_output)
+
+    def test_read_template(self):
+        """
+        test the read_template function
+        """
+
+        template = read_template(
+            os.path.join(os.getcwd(), "..", "..", "email_template.txt")
+        )
+        self.assertEqual(template.template, EMAIL_TEMPLATE)

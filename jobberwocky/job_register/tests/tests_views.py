@@ -76,7 +76,7 @@ class TestViews(TestCase):
         """
         test the endpoint that allows to search for jobs ejercise 2
         """
-        response = self.client.get(self.search_url)
+        response = self.client.get(self.search_url + "?job_name=")
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "job_register/search.html")
 
@@ -84,6 +84,24 @@ class TestViews(TestCase):
         """
         test the endpoint that allows to search for jobs ejercise 3
         """
-        response = self.client.get(self.search_v2_url)
+        response = self.client.get(self.search_v2_url + "?job_name=")
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "job_register/search.html")
+
+    def test_search_page_query_result(self):
+        """
+        test the query result of the endpoint that allows to search for jobs ejercise 2
+        """
+        response = self.client.get(self.search_url + "?job_name=23")
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "job_register/search.html")
+        self.assertEqual(len(response.context["jobs"]), 0)
+    
+    def test_search_page_query_result_test_job_name(self):
+        """
+        test the query result of the endpoint that allows to search for jobs ejercise 2
+        """
+        response = self.client.get(self.search_url + "?job_name=Python developer")
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "job_register/search.html")
+        self.assertEqual(len(response.context["jobs"]), 1)

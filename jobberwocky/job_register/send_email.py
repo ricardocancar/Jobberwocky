@@ -9,13 +9,24 @@ from configuration import MY_ADDRESS
 
 
 def read_template(path):
+    """
+    Returns a Template object comprising the contents of the
+    file specified by path.
+    """
     with open(path, "r", encoding="utf-8") as template_file:
         template_file_content = template_file.read()
     return Template(template_file_content)
 
 
 # For each contact, send the email:
-def send_email(s, user, job):
+def send_email(s , user, job) -> None:
+    """
+    this function will send an email to the user
+    args:
+        s: smtplib object
+        user: user object from database
+        job: job object from database
+    """
     user_name = user.name
     user_mail = user.email
 

@@ -60,11 +60,14 @@ class SignIn(View):
 
 
 class Search_v1(View):
-    def get(self, request, job_name=""):
+    def get(self, request):
         """
         query the database and return a list of jobs that match the search job_name
+        args:
+            job_name: string to search for the available jobs
         """
         # filter jobs by job_name
+        job_name = request.GET.get("job_name")
         jobs = Jobs.objects.filter(job_name__contains=job_name)
         # get the the skills for each job
         ctx = {"jobs": jobs}
@@ -73,12 +76,15 @@ class Search_v1(View):
 
 # exercise part 3
 class Search_v2(View):
-    def get(self, request, job_name=""):
+    def get(self, request):
         """
         query the database and externals API to
         return a list of jobs that match the search job_name
+        args:
+            job_name: string to search for the available jobs
         """
         # filter jobs by job_name
+        job_name = request.GET.get("job_name")
         jobs = Jobs.objects.filter(job_name__contains=job_name)
         # get the the skills for each job
         externals_jobs_offers = get_externals_job_offers(job_name)

@@ -17,7 +17,7 @@ urlpatterns = [
         TemplateView.as_view(template_name="job_register/search_engine_v2.html"),
         name="search/engine/v2",
     ),
-    path("search/v1/", views.Search_v1.as_view(), name="search/v1"),
-    path("search/v2/", views.Search_v2.as_view(), name="search/v2"),
+    path("search/v1/", views.Search.as_view(), name="search/v1"),
+    path("search/v2/", views.Search.as_view(), name="search/v2"),
     path("signin/", views.SignIn.as_view(), name="signin"),
 ]
